@@ -1,1 +1,38 @@
+name: Build and Upload Artifact
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on pushes to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger the workflow on pull requests to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Build project
+      run: |
+        # Replace with your build commands
+        python setup.py build
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-build-artifact
+        path: path/to/your/artifact  # Adjust to the path where your artifact is located
 
